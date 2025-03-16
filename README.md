@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Task Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Setup Instructions
 
-## About Laravel
+### Prerequisites
+Ensure you have the following installed on your system:
+- PHP (>=8.0)
+- Composer
+- Laravel
+- MySQL or PostgreSQL
+- Node.js & npm (for frontend assets if applicable)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Installation Steps
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/mufasil/task_management.git
+   cd task_management
+   ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. **Install dependencies**
+   ```sh
+   composer install
+   ```
 
-## Learning Laravel
+3. **Set up environment variables**
+   ```sh
+   cp .env.example .env
+   ```
+   Update database credentials and other configurations in the `.env` file.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. **Generate application key**
+   ```sh
+   php artisan key:generate
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+5. **Serve the application**
+   ```sh
+   php artisan serve
+   ```
+   The application will be accessible at `http://127.0.0.1:8000`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## API Documentation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Import Postman Collection
+Import the Postman collection file found in the project root:
+`Task Management.postman_collection.json`
 
-### Premium Partners
+### Authentication APIs
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Login
+- **Endpoint:** `POST /api/login`
+- **Description:** Authenticates a user and returns an access token.
 
-## Contributing
+#### Register
+- **Endpoint:** `POST /api/register`
+- **Description:** Registers a new user and returns an access token.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Task APIs
 
-## Code of Conduct
+#### Create Task
+- **Endpoint:** `POST /api/tasks`
+- **Description:** Creates a new task with title and description.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Update Task
+- **Endpoint:** `PUT /api/tasks/{id}`
+- **Description:** Updates an existing task by ID.
 
-## Security Vulnerabilities
+#### List Tasks
+- **Endpoint:** `GET /api/tasks`
+- **Description:** Retrieves a list of all tasks.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Delete Task
+- **Endpoint:** `DELETE /api/tasks/{id}`
+- **Description:** Deletes a specific task by ID.
+
+### Comments APIs
+
+#### Add Comment to Task
+- **Endpoint:** `POST /api/tasks/{id}/comments`
+- **Description:** Adds a comment to a specific task.
+
+#### Update Comment
+- **Endpoint:** `PUT /api/comments/{id}`
+- **Description:** Updates a specific comment by ID.
+
+#### Delete Comment
+- **Endpoint:** `DELETE /api/comments/{id}`
+- **Description:** Deletes a specific comment by ID.
+
+#### List Comments by Task
+- **Endpoint:** `GET /api/tasks/{id}/comments`
+- **Description:** Retrieves all comments related to a specific task.
+
+---
+
+## Additional Commands
+
+### Clearing Cache
+```sh
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+### Running Queue Worker (if applicable)
+```sh
+php artisan queue:work
+```
+
+---
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
