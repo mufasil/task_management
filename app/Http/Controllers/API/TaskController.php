@@ -19,7 +19,6 @@ class TaskController extends Controller
     {
         $this->taskService = $taskService;
     }
-
     public function index(Request $request): JsonResponse
     {
         return $this->taskService->listTasks($request);

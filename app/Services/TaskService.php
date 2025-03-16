@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Helpers\ApiResponse;
+use App\Models\Task;
+use App\Models\User;
+use App\Notifications\TaskAssignedNotification;
 use App\Repositories\TaskRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\Contracts\CommentRepositoryInterface;
@@ -25,7 +28,10 @@ class TaskService
     }
     public function createTask(array $data)
     {
-        return ApiResponse::success($this->taskRepo->createTask($data));
+        $user = User::findOrFail($data['assignee_id']);
+        $task = $this->taskRepo->createTask($data);
+        $this->notifyAssignee($user, $task);
+        return ApiResponse::success($task);
     }
 
     public function getTask(int $id)
@@ -61,5 +67,11 @@ class TaskService
     public function listComments(int $taskId)
     {
         return ApiResponse::success($this->commentRepo->listComments($taskId));
+    }
+
+    public function notifyAssignee(User $user, Task $task)
+    {
+        // Send the notification
+        $user->notify(new TaskAssignedNotification($task));
     }
 }

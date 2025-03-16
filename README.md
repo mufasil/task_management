@@ -34,7 +34,22 @@ Ensure you have the following installed on your system:
    php artisan key:generate
    ```
 
-5. **Serve the application**
+5. **Configure Database Queue**
+
+   Update the .env file to use the database queue driver:
+
+   ```sh
+   QUEUE_CONNECTION=database
+   ```
+
+   Then, create the queue table and migrate the database:
+
+   ```
+   php artisan queue:table
+   php artisan migrate
+   ```
+
+6. **Serve the application**
    ```sh
    php artisan serve
    ```
